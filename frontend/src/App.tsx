@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import type { Recipe } from "./types/response";
+import Recipes from "./components/Recipes";
 
 import "./App.css";
 
@@ -47,23 +48,7 @@ function App() {
 
       <p>{message || "failed to reach backend"}</p>
 
-      <ul>
-        {recipes.map(({ name, description, steps }, i) => (
-          <li key={i}>
-            <p>{name}</p>
-
-            <p>{description}</p>
-
-            <ol>
-              {steps.map((m) => (
-                <li key={m.number}>
-                  <p>{m.details}</p>
-                </li>
-              ))}
-            </ol>
-          </li>
-        ))}
-      </ul>
+      <Recipes recipes={recipes} />
     </main>
   );
 }

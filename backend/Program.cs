@@ -54,6 +54,15 @@ app.MapPost(
                     new RecipeStep(3, "Combine the eggs and rice."),
                 ]
             ),
+            new Recipe(
+                "sample recipe",
+                "this is not actually something you can cook.",
+                [
+                    new RecipeStep(1, "step 1."),
+                    new RecipeStep(2, "number 2."),
+                    new RecipeStep(3, "and 3."),
+                ]
+            ),
         ]);
 
         return Results.Ok(response);
