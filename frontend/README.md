@@ -28,3 +28,12 @@ recipe
 - steps
   - step number
   - step details
+
+Appliances
+things that cook, heat, blend, chill, or process food
+
+Utensils / tools
+things used by hand to prep, stir, cut, measure, mix, or serve food
+
+Cookware
+pots, pans, baking sheets, containers used with heat

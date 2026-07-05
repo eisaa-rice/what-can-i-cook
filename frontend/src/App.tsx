@@ -1,24 +1,17 @@
 import { useState, useEffect } from "react";
 
-import type { Recipe } from "./types/response";
+import Form from "./components/Form";
 import Recipes from "./components/Recipes";
 
-import "./App.css";
-
-// for sample api call
-const utensils = ["pan", "spoon"];
-const appliances = ["stove"];
-const ingredients = [
-  {
-    name: "eggs",
-    amount: {
-      quantity: 2,
-      unit: null,
-    },
-  },
-];
+import type { Appliance, Cookware, Utensil, Ingredient } from "./types/request";
+import type { Recipe } from "./types/response";
 
 function App() {
+  const [appliances, setAppliances] = useState<Appliance[]>([]);
+  const [cookware, setCookware] = useState<Cookware[]>([]);
+  const [utensils, setUtensils] = useState<Utensil[]>([]);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+
   const [message, setMessage] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
@@ -35,7 +28,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ utensils, appliances, ingredients }),
+      body: JSON.stringify({ appliances, cookware, utensils, ingredients }),
     })
       .then((res) => res.json())
       .then((data) => setRecipes(data.recipes))
@@ -43,10 +36,12 @@ function App() {
   }, []);
 
   return (
-    <main>
+    <main className="flex flex-col gap-12">
       <h1>help me cook</h1>
 
       <p>{message || "failed to reach backend"}</p>
+
+      <Form />
 
       <Recipes recipes={recipes} />
     </main>
