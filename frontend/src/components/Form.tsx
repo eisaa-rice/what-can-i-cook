@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-import { APPLIANCES, COOKWARE, UTENSILS } from "../types/request";
+import {
+  APPLIANCES,
+  COOKWARE,
+  UTENSILS,
+  type Appliance,
+  type Cookware,
+  type Utensil,
+} from "../types/request";
 
 const Item = ({ name }: { name: string }) => {
   const [selected, setSelected] = useState(false);
@@ -20,9 +27,24 @@ const Item = ({ name }: { name: string }) => {
   );
 };
 
-const Form = ({}: {}) => {
+const Ingredient = ({ ingredient }: { ingredient: string }) => {
+  return <p className="flex gap-1">{ingredient}</p>;
+};
+
+const Form = ({
+  appliances,
+  cookware,
+  utensils,
+  ingredients,
+}: {
+  appliances: Appliance[];
+  cookware: Cookware[];
+  utensils: Utensil[];
+  ingredients: string[];
+}) => {
   return (
-    <div className="flex flex-col gap-6">
+    // when changed from <div> to <form>, clicking any of the kitchen utility pills causes a page refresh
+    <form className="flex flex-col items-center justify-center gap-6">
       <div className="flex flex-wrap items-center justify-center gap-2">
         {APPLIANCES.map((a) => (
           <Item key={a} name={a} />
@@ -40,7 +62,15 @@ const Form = ({}: {}) => {
           <Item key={u} name={u} />
         ))}
       </div>
-    </div>
+
+      <div>
+        {ingredients.map((i, idx) => (
+          <Ingredient key={idx} ingredient={i} />
+        ))}
+
+        <input placeholder="Ingredient..." />
+      </div>
+    </form>
   );
 };
 

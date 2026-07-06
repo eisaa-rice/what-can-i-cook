@@ -3,14 +3,34 @@ import { useState, useEffect } from "react";
 import Form from "./components/Form";
 import Recipes from "./components/Recipes";
 
-import type { Appliance, Cookware, Utensil, Ingredient } from "./types/request";
+import type { Appliance, Cookware, Utensil } from "./types/request";
 import type { Recipe } from "./types/response";
 
 function App() {
-  const [appliances, setAppliances] = useState<Appliance[]>([]);
-  const [cookware, setCookware] = useState<Cookware[]>([]);
-  const [utensils, setUtensils] = useState<Utensil[]>([]);
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [appliances, setAppliances] = useState<Appliance[]>([
+    "stove",
+    "oven",
+    "microwave",
+  ]);
+  const [cookware, setCookware] = useState<Cookware[]>([
+    "frying pan",
+    "saucepan",
+    "cutting board",
+    "mixing bowl",
+  ]);
+  const [utensils, setUtensils] = useState<Utensil[]>([
+    "knife",
+    "spatula",
+    "spoon",
+    "measuring cups",
+    "can opener",
+  ]);
+  const [ingredients, setIngredients] = useState<string[]>([
+    "2 eggs",
+    "1 cup rice",
+    "1 onion",
+    "soy sauce",
+  ]);
 
   const [message, setMessage] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -41,7 +61,12 @@ function App() {
 
       <p>{message || "failed to reach backend"}</p>
 
-      <Form />
+      <Form
+        appliances={appliances}
+        cookware={cookware}
+        utensils={utensils}
+        ingredients={ingredients}
+      />
 
       <Recipes recipes={recipes} />
     </main>

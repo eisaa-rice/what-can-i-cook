@@ -35,19 +35,9 @@ export const UTENSILS = [
 ] as const;
 export type Utensil = (typeof UTENSILS)[number];
 
-export type IngredientAmount = {
-  quantity: number;
-  unit?: string;
-};
-
-export type Ingredient = {
-  name: string;
-  amount?: IngredientAmount;
-};
-
 export type GenerateRecipeRequest = {
   utensils: string[];
   cookware: string[];
   appliances: string[];
-  ingredients: Ingredient[];
+  ingredients: string[];
 };

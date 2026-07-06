@@ -32,8 +32,8 @@ const Recipe = ({
 const Recipes = ({ recipes }: { recipes: Recipe[] }) => {
   return (
     <ul>
-      {recipes.map(({ name, description, steps }, i) => (
-        <Recipe key={i} name={name} description={description} steps={steps} />
+      {recipes.map(({ name, description, steps }, idx) => (
+        <Recipe key={idx} name={name} description={description} steps={steps} />
       ))}
     </ul>
   );
