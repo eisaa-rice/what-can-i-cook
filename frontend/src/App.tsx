@@ -25,12 +25,26 @@ function App() {
     "measuring cups",
     "can opener",
   ]);
+
   const [ingredients, setIngredients] = useState<string[]>([
     "2 eggs",
     "1 cup rice",
     "1 onion",
     "soy sauce",
   ]);
+
+  const addIngredient = (ingredient: string) => {
+    const trimmed = ingredient.trim();
+    if (!trimmed) return;
+
+    setIngredients((prev) => [...prev, ingredient]);
+  };
+
+  const deleteIngredient = (ingredient: string) => {
+    console.log("idk anymore bro");
+
+    setIngredients((prev) => prev.filter((i) => i !== ingredient));
+  };
 
   const [message, setMessage] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -66,6 +80,8 @@ function App() {
         cookware={cookware}
         utensils={utensils}
         ingredients={ingredients}
+        onAddIngredient={addIngredient}
+        onDeleteIngredient={deleteIngredient}
       />
 
       <Recipes recipes={recipes} />
