@@ -9,19 +9,23 @@ import {
   type Utensil,
 } from "../types/request";
 
-const Item = ({ name }: { name: string }) => {
-  const [selected, setSelected] = useState(false);
+import { Trash2 } from "lucide-react";
 
-  const handleSelect = () => {
-    setSelected((prev) => !prev);
-  };
-
+const Item = ({
+  name,
+  selected,
+  onToggle,
+}: {
+  name: string;
+  selected: boolean;
+  onToggle: () => void;
+}) => {
   return (
     <button
       className={`${selected ? "text-neutral-800 border-neutral-400 font-semibold" : "text-neutral-600 border-neutral-200"}
       text-sm border rounded-full px-2 py-1 cursor-pointer`}
       type="button"
-      onClick={handleSelect}
+      onClick={onToggle}
     >
       {name}
     </button>
@@ -36,15 +40,15 @@ const Ingredient = ({
   onDeleteIngredient: (ingredient: string) => void;
 }) => {
   return (
-    <div className="flex gap-2">
-      <p className="flex gap-1">{ingredient}</p>
+    <div className="flex items-center justify-center gap-4">
+      <p>{ingredient}</p>
 
       <button
         className="cursor-pointer"
         type="button"
         onClick={() => onDeleteIngredient(ingredient)}
       >
-        delete
+        <Trash2 size={16} strokeWidth={1} />
       </button>
     </div>
   );
@@ -54,6 +58,9 @@ const Form = ({
   appliances,
   cookware,
   utensils,
+  onToggleAppliance,
+  onToggleCookware,
+  onToggleUtensil,
   ingredients,
   onAddIngredient,
   onDeleteIngredient,
@@ -61,6 +68,9 @@ const Form = ({
   appliances: Appliance[];
   cookware: Cookware[];
   utensils: Utensil[];
+  onToggleAppliance: (appliance: Appliance) => void;
+  onToggleCookware: (cookware: Cookware) => void;
+  onToggleUtensil: (utensil: Utensil) => void;
   ingredients: string[];
   onAddIngredient: (ingredient: string) => void;
   onDeleteIngredient: (ingredient: string) => void;
@@ -72,19 +82,34 @@ const Form = ({
     <div className="flex flex-col items-center justify-center gap-6">
       <div className="flex flex-wrap items-center justify-center gap-2">
         {APPLIANCES.map((a) => (
-          <Item key={a} name={a} />
+          <Item
+            key={a}
+            name={a}
+            selected={appliances.includes(a)}
+            onToggle={() => onToggleAppliance(a)}
+          />
         ))}
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-2">
         {COOKWARE.map((c) => (
-          <Item key={c} name={c} />
+          <Item
+            key={c}
+            name={c}
+            selected={cookware.includes(c)}
+            onToggle={() => onToggleCookware(c)}
+          />
         ))}
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-2">
         {UTENSILS.map((u) => (
-          <Item key={u} name={u} />
+          <Item
+            key={u}
+            name={u}
+            selected={utensils.includes(u)}
+            onToggle={() => onToggleUtensil(u)}
+          />
         ))}
       </div>
 

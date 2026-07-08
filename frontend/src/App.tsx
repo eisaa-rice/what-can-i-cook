@@ -12,12 +12,30 @@ function App() {
     "oven",
     "microwave",
   ]);
+
+  const toggleAppliance = (appliance: Appliance) => {
+    setAppliances((prev) =>
+      prev.includes(appliance)
+        ? prev.filter((a) => a !== appliance)
+        : [...prev, appliance],
+    );
+  };
+
   const [cookware, setCookware] = useState<Cookware[]>([
     "frying pan",
     "saucepan",
     "cutting board",
     "mixing bowl",
   ]);
+
+  const toggleCookware = (cookware: Cookware) => {
+    setCookware((prev) =>
+      prev.includes(cookware)
+        ? prev.filter((c) => c !== cookware)
+        : [...prev, cookware],
+    );
+  };
+
   const [utensils, setUtensils] = useState<Utensil[]>([
     "knife",
     "spatula",
@@ -25,6 +43,14 @@ function App() {
     "measuring cups",
     "can opener",
   ]);
+
+  const toggleUtensil = (utensil: Utensil) => {
+    setUtensils((prev) =>
+      prev.includes(utensil)
+        ? prev.filter((u) => u !== utensil)
+        : [...prev, utensil],
+    );
+  };
 
   const [ingredients, setIngredients] = useState<string[]>([
     "2 eggs",
@@ -41,8 +67,6 @@ function App() {
   };
 
   const deleteIngredient = (ingredient: string) => {
-    console.log("idk anymore bro");
-
     setIngredients((prev) => prev.filter((i) => i !== ingredient));
   };
 
@@ -79,6 +103,9 @@ function App() {
         appliances={appliances}
         cookware={cookware}
         utensils={utensils}
+        onToggleAppliance={toggleAppliance}
+        onToggleCookware={toggleCookware}
+        onToggleUtensil={toggleUtensil}
         ingredients={ingredients}
         onAddIngredient={addIngredient}
         onDeleteIngredient={deleteIngredient}
