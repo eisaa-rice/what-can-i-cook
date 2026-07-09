@@ -80,13 +80,38 @@ function App() {
     setIngredients((prev) => prev.filter((i) => i !== ingredient));
   };
 
+  const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setError("");
+
+    const missing: string[] = [];
+
+    if (appliances.length === 0) missing.push("appliance");
+    if (cookware.length === 0) missing.push("cookware item");
+    if (utensils.length === 0) missing.push("utensil");
+    if (ingredients.length === 0) missing.push("ingredient");
+
+    if (missing.length > 0) {
+      if (missing.length === 1)
+        setError(`Please select at least one ${missing[0]}.`);
+
+      if (missing.length === 2)
+        setError(`Please select at least one ${missing[0]} and ${missing[1]}.`);
+
+      setError(
+        `Please select at least one ${missing.slice(0, -1).join(", ")}, and ${missing[missing.length - 1]}.`,
+      );
+
+      return;
+    }
+
     try {
-      // reset loading and error state
+      setLoading(true);
 
       const data = await generateRecipes({
         appliances,
@@ -98,9 +123,9 @@ function App() {
       setRecipes(data.recipes);
     } catch (error) {
       console.error(error);
-      // set error state
+      setError("Something went wrong while generating recipes.");
     } finally {
-      // remove loading state
+      setLoading(false);
     }
   };
 
@@ -127,7 +152,14 @@ function App() {
         onSubmit={handleSubmit}
       />
 
-      <Recipes recipes={recipes} />
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        // !== ""
+        <p>{error}</p>
+      ) : (
+        <Recipes recipes={recipes} />
+      )}
     </main>
   );
 }
