@@ -5,8 +5,18 @@ import Recipes from "./components/Recipes";
 
 import type { Appliance, Cookware, Utensil } from "./types/request";
 import type { Recipe } from "./types/response";
+import { generateRecipes } from "./api/recipes";
 
 function App() {
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:5200/api/health", { method: "GET" })
+      .then((res) => res.json())
+      .then(() => setConnected(true))
+      .catch((err) => console.error(err));
+  }, []);
+
   const [appliances, setAppliances] = useState<Appliance[]>([
     "stove",
     "oven",
@@ -70,45 +80,51 @@ function App() {
     setIngredients((prev) => prev.filter((i) => i !== ingredient));
   };
 
-  const [message, setMessage] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5200/api/health", { method: "GET" })
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message))
-      .catch((err) => console.error(err));
-  }, []);
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  useEffect(() => {
-    fetch("http://localhost:5200/api/recipes/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ appliances, cookware, utensils, ingredients }),
-    })
-      .then((res) => res.json())
-      .then((data) => setRecipes(data.recipes))
-      .catch((err) => console.error(err));
-  }, []);
+    try {
+      // reset loading and error state
+
+      const data = await generateRecipes({
+        appliances,
+        cookware,
+        utensils,
+        ingredients,
+      });
+
+      setRecipes(data.recipes);
+    } catch (error) {
+      console.error(error);
+      // set error state
+    } finally {
+      // remove loading state
+    }
+  };
 
   return (
     <main className="flex flex-col gap-12">
-      <h1>help me cook</h1>
+      <h1>What Can I Cook?</h1>
 
-      <p>{message || "failed to reach backend"}</p>
+      <p>
+        {connected
+          ? "Successfully connected to backend"
+          : "Failed to reach backend"}
+      </p>
 
       <Form
         appliances={appliances}
-        cookware={cookware}
-        utensils={utensils}
         onToggleAppliance={toggleAppliance}
+        cookware={cookware}
         onToggleCookware={toggleCookware}
+        utensils={utensils}
         onToggleUtensil={toggleUtensil}
         ingredients={ingredients}
         onAddIngredient={addIngredient}
         onDeleteIngredient={deleteIngredient}
+        onSubmit={handleSubmit}
       />
 
       <Recipes recipes={recipes} />

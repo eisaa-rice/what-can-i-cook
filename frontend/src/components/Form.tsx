@@ -56,30 +56,35 @@ const Ingredient = ({
 
 const Form = ({
   appliances,
-  cookware,
-  utensils,
   onToggleAppliance,
+  cookware,
   onToggleCookware,
+  utensils,
   onToggleUtensil,
   ingredients,
   onAddIngredient,
   onDeleteIngredient,
+  onSubmit,
 }: {
   appliances: Appliance[];
-  cookware: Cookware[];
-  utensils: Utensil[];
   onToggleAppliance: (appliance: Appliance) => void;
+  cookware: Cookware[];
   onToggleCookware: (cookware: Cookware) => void;
+  utensils: Utensil[];
   onToggleUtensil: (utensil: Utensil) => void;
   ingredients: string[];
   onAddIngredient: (ingredient: string) => void;
   onDeleteIngredient: (ingredient: string) => void;
+  onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void;
 }) => {
   const [input, setInput] = useState("");
 
   return (
     // when changed from <div> to <form>, clicking any of the kitchen utility pills causes a page refresh
-    <div className="flex flex-col items-center justify-center gap-6">
+    <form
+      className="flex flex-col items-center justify-center gap-6"
+      onSubmit={onSubmit}
+    >
       <div className="flex flex-wrap items-center justify-center gap-2">
         {APPLIANCES.map((a) => (
           <Item
@@ -139,7 +144,11 @@ const Form = ({
           }}
         />
       </div>
-    </div>
+
+      <button type="submit" className="cursor-pointer">
+        Submit
+      </button>
+    </form>
   );
 };
 

@@ -9,6 +9,6 @@ export type Recipe = {
   steps: RecipeStep[];
 };
 
-export type GenerateRecipeResponse = {
+export type Response = {
   recipes: Recipe[];
 };

@@ -44,6 +44,30 @@ app.MapPost(
     "/api/recipes/generate",
     (GenerateRecipeRequest request) =>
     {
+        Console.WriteLine("Appliances:");
+        foreach (var appliance in request.Appliances)
+        {
+            Console.WriteLine(appliance);
+        }
+
+        Console.WriteLine("Cookware:");
+        foreach (var item in request.Cookware)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine("Utensils:");
+        foreach (var utensil in request.Utensils)
+        {
+            Console.WriteLine(utensil);
+        }
+
+        Console.WriteLine("Ingredients:");
+        foreach (var ingredient in request.Ingredients)
+        {
+            Console.WriteLine(ingredient);
+        }
+
         var response = new GenerateRecipeResponse([
             new Recipe(
                 "Simple Egg Rice Bowl",
