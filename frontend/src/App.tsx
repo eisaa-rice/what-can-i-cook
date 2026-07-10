@@ -8,12 +8,10 @@ import type { Recipe } from "./types/response";
 import { generateRecipes } from "./api/recipes";
 
 function App() {
-  const [connected, setConnected] = useState(false);
-
   useEffect(() => {
     fetch("http://localhost:5200/api/health", { method: "GET" })
       .then((res) => res.json())
-      .then(() => setConnected(true))
+      .then(() => console.log("Successfully connected to backend."))
       .catch((err) => console.error(err));
   }, []);
 
@@ -131,13 +129,8 @@ function App() {
 
   return (
     <main className="flex flex-col gap-12">
+      {/* TODO: header component */}
       <h1>What Can I Cook?</h1>
-
-      <p>
-        {connected
-          ? "Successfully connected to backend"
-          : "Failed to reach backend"}
-      </p>
 
       <Form
         appliances={appliances}

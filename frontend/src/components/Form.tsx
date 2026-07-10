@@ -23,7 +23,7 @@ const Item = ({
   return (
     <button
       className={`${selected ? "text-neutral-800 border-neutral-400 font-semibold" : "text-neutral-600 border-neutral-200"}
-      text-sm border rounded-full px-2 py-1 cursor-pointer`}
+      text-sm border rounded-full px-2 py-1 cursor-pointer first-letter:capitalize`}
       type="button"
       onClick={onToggle}
     >
@@ -41,7 +41,7 @@ const Ingredient = ({
 }) => {
   return (
     <div className="flex items-center justify-center gap-4">
-      <p>{ingredient}</p>
+      <p className="first-letter:capitalize">{ingredient}</p>
 
       <button
         className="cursor-pointer"
@@ -80,7 +80,6 @@ const Form = ({
   const [input, setInput] = useState("");
 
   return (
-    // when changed from <div> to <form>, clicking any of the kitchen utility pills causes a page refresh
     <form
       className="flex flex-col items-center justify-center gap-6"
       onSubmit={onSubmit}

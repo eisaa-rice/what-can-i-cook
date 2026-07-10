@@ -10,7 +10,7 @@ export const generateRecipes = async (request: Request): Promise<Response> => {
     body: JSON.stringify(request),
   });
 
-  if (!response.ok) throw new Error("Failed to generate recipes");
+  if (!response.ok) throw new Error("Failed to generate recipes.");
 
   return response.json();
 };
