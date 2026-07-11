@@ -78,9 +78,11 @@ function App() {
     setIngredients((prev) => prev.filter((i) => i !== ingredient));
   };
 
-  const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -119,6 +121,8 @@ function App() {
       });
 
       setRecipes(data.recipes);
+
+      setSuccess(true);
     } catch (error) {
       console.error(error);
       setError("Something went wrong while generating recipes.");
@@ -132,26 +136,27 @@ function App() {
       {/* TODO: header component */}
       <h1>What Can I Cook?</h1>
 
-      <Form
-        appliances={appliances}
-        onToggleAppliance={toggleAppliance}
-        cookware={cookware}
-        onToggleCookware={toggleCookware}
-        utensils={utensils}
-        onToggleUtensil={toggleUtensil}
-        ingredients={ingredients}
-        onAddIngredient={addIngredient}
-        onDeleteIngredient={deleteIngredient}
-        onSubmit={handleSubmit}
-      />
-
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        // !== ""
-        <p>{error}</p>
-      ) : (
+      {success ? (
         <Recipes recipes={recipes} />
+      ) : (
+        <>
+          <Form
+            appliances={appliances}
+            onToggleAppliance={toggleAppliance}
+            cookware={cookware}
+            onToggleCookware={toggleCookware}
+            utensils={utensils}
+            onToggleUtensil={toggleUtensil}
+            ingredients={ingredients}
+            onAddIngredient={addIngredient}
+            onDeleteIngredient={deleteIngredient}
+            onSubmit={handleSubmit}
+          />
+
+          {loading && <p>Generating recipes...</p>}
+
+          {error && <p>{error}</p>}
+        </>
       )}
     </main>
   );
