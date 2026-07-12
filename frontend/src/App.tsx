@@ -71,7 +71,7 @@ function App() {
     const trimmed = ingredient.trim();
     if (!trimmed) return;
 
-    setIngredients((prev) => [...prev, ingredient]);
+    setIngredients((prev) => [...prev, trimmed]);
   };
 
   const deleteIngredient = (ingredient: string) => {

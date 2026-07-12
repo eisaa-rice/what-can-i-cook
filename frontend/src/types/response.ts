@@ -1,3 +1,5 @@
+import type { Appliance, Cookware, Utensil } from "./request";
+
 export type RecipeStep = {
   number: number;
   details: string;
@@ -6,6 +8,10 @@ export type RecipeStep = {
 export type Recipe = {
   name: string;
   description: string;
+  appliances: Appliance[];
+  cookware: Cookware[];
+  utensils: Utensil[];
+  ingredients: string[];
   steps: RecipeStep[];
 };
 

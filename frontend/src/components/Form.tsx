@@ -87,7 +87,7 @@ const Form = ({
 
   return (
     <form
-      className="flex flex-col items-center justify-center gap-6"
+      className="flex flex-col items-center justify-center gap-8"
       onSubmit={onSubmit}
     >
       <h2>{questions[step]}</h2>
