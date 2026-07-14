@@ -5,6 +5,7 @@ import Recipes from "./components/Recipes";
 
 import type { Appliance, Cookware, Utensil } from "./types/request";
 import type { Recipe } from "./types/response";
+
 import { generateRecipes } from "./api/recipes";
 
 function App() {
@@ -132,11 +133,10 @@ function App() {
   };
 
   return (
-    <main className="flex flex-col gap-12">
-      {/* TODO: header component */}
-      <h1>What Can I Cook?</h1>
-
+    <main className="min-h-dvh flex flex-col items-center justify-center gap-12">
       {success ? (
+        // TODO: display current items and possibly editing mode
+
         <Recipes recipes={recipes} />
       ) : (
         <>
