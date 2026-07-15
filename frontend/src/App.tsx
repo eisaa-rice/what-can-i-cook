@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import Form from "./components/Form";
+import Kitchen from "./components/Kitchen";
 import Recipes from "./components/Recipes";
 
 import type { Appliance, Cookware, Utensil } from "./types/request";
@@ -136,8 +137,16 @@ function App() {
     <main className="min-h-dvh flex flex-col items-center justify-center gap-12">
       {success ? (
         // TODO: display current items and possibly editing mode
+        <>
+          <Kitchen
+            appliances={appliances}
+            cookware={cookware}
+            utensils={utensils}
+            ingredients={ingredients}
+          />
 
-        <Recipes recipes={recipes} />
+          <Recipes recipes={recipes} />
+        </>
       ) : (
         <>
           <Form
