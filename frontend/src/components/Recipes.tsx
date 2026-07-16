@@ -88,7 +88,7 @@ const Recipe = ({
         ))}
       </ul>
 
-      <ol>
+      <ol className="flex flex-col gap-2">
         {steps.map((m) => (
           <li key={m.number} className="list-decimal ml-4">
             {m.details}
@@ -104,6 +104,8 @@ const Recipes = ({ recipes }: { recipes: Recipe[] }) => {
 
   return (
     <>
+      <h2>Your recipes:</h2>
+
       <ul className="flex flex-col gap-2">
         {recipes.map(({ name, description }, idx) => (
           <RecipeCard
