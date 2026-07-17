@@ -67,6 +67,7 @@ app.MapPost(
         {
             Console.WriteLine(ingredient);
         }
+        Console.WriteLine();
 
         var response = new GenerateRecipeResponse([
             new Recipe(

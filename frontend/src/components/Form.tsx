@@ -68,6 +68,9 @@ const Form = ({
   ingredients,
   onAddIngredient,
   onDeleteIngredient,
+  step,
+  onBack,
+  onNext,
   onSubmit,
 }: {
   appliances: Appliance[];
@@ -79,10 +82,11 @@ const Form = ({
   ingredients: string[];
   onAddIngredient: (ingredient: string) => void;
   onDeleteIngredient: (ingredient: string) => void;
+  step: number;
+  onBack: () => void;
+  onNext: () => void;
   onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void;
 }) => {
-  const [step, setStep] = useState(0);
-
   const [input, setInput] = useState("");
 
   return (
@@ -162,13 +166,13 @@ const Form = ({
 
       <div className="flex items-center justify-center gap-12 text-sm">
         {step > 0 && step < 5 && (
-          <button type="button" onClick={() => setStep((prev) => prev - 1)}>
+          <button type="button" onClick={onBack}>
             Back
           </button>
         )}
 
         {step < 4 && (
-          <button type="button" onClick={() => setStep((prev) => prev + 1)}>
+          <button type="button" onClick={onNext}>
             Next
           </button>
         )}

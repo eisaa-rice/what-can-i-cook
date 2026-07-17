@@ -17,6 +17,8 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
+  const [step, setStep] = useState(0);
+
   const [appliances, setAppliances] = useState<Appliance[]>([
     "stove",
     "oven",
@@ -136,13 +138,17 @@ function App() {
   return (
     <main className="min-h-dvh flex flex-col items-center justify-center gap-12">
       {success ? (
-        // TODO: display current items and possibly editing mode
         <>
           <Kitchen
             appliances={appliances}
             cookware={cookware}
             utensils={utensils}
             ingredients={ingredients}
+            onEdit={() => {
+              setSuccess((prev) => !prev);
+
+              setRecipes([]);
+            }}
           />
 
           <Recipes recipes={recipes} />
@@ -159,6 +165,9 @@ function App() {
             ingredients={ingredients}
             onAddIngredient={addIngredient}
             onDeleteIngredient={deleteIngredient}
+            step={step}
+            onBack={() => setStep((prev) => prev - 1)}
+            onNext={() => setStep((prev) => prev + 1)}
             onSubmit={handleSubmit}
           />
 

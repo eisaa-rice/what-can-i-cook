@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import Header from "./components/layout/header.tsx";
 import App from "./App.tsx";
+import Header from "./components/layout/Header.tsx";
 
 import "./index.css";
 
