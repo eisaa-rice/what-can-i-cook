@@ -1,3 +1,11 @@
+<!-- TODO: ui style finalization (color scheme, text heirarchy, interaction effects) -->
+
+<!-- TODO: readme cleanup -->
+
+<!-- TODO: undo default values -->
+
+<!-- TODO: display "Demo limited to 3 recipe generations per hour." -->
+
 # request:
 
 utensils
